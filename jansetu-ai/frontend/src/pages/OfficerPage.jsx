@@ -1,0 +1,25 @@
+import { useState, useEffect } from 'react'
+import StatsCards from '../components/StatsCards'
+import OfficerDashboard from '../components/OfficerDashboard'
+import { getDashboardStats } from '../api'
+
+export default function OfficerPage() {
+  const [stats, setStats] = useState(null)
+  useEffect(() => { getDashboardStats().then(setStats).catch(console.error) }, [])
+  return (
+    <div className="space-y-8">
+      <div className="flex items-end justify-between flex-wrap gap-4">
+        <div>
+          <span className="reveal inline-flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-corsair">
+            <span className="w-2 h-2 rounded-full bg-accent animate-pulse-dot" />
+            Command Center
+          </span>
+          <h1 className="reveal reveal-delay-1 font-display italic text-4xl md:text-5xl text-ink leading-tight tracking-tightest">Officer Dashboard</h1>
+          <p className="reveal reveal-delay-2 text-lg text-ink-soft mt-1">Manage and track citizen grievances</p>
+        </div>
+      </div>
+      <StatsCards stats={stats} />
+      <OfficerDashboard />
+    </div>
+  )
+}

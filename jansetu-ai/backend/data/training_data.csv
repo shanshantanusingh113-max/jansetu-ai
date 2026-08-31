@@ -1,0 +1,40 @@
+text,language,category,urgency_level
+Mere area mein teen din se pani nahi aa raha,hi,Water Supply,high
+Water supply has been stopped for 3 days in our colony,en,Water Supply,high
+Hamare yahan pani ki bahut kami hai,hi,Water Supply,medium
+Tap water is not coming since yesterday,en,Water Supply,high
+Borewell kharab ho gaya hai,hi,Water Supply,medium
+Handpump is not working in our village,en,Water Supply,medium
+Tanker nahi aa raha hai do din se,hi,Water Supply,high
+Water tanker has not come for 2 days,en,Water Supply,high
+Paani ka pipeline toot gaya hai,hi,Water Supply,critical
+Water pipeline is burst and water is wasting,en,Water Supply,critical
+Ghar mein pani ka pressure bahut kam hai,hi,Water Supply,low
+Low water pressure in residential area,en,Water Supply,low
+Nala band ho gaya hai aur paani bhar raha hai,hi,Drainage,high
+Drain is blocked and water is overflowing,en,Drainage,high
+Sewerage overflow ho raha hai sadak pe,hi,Drainage,critical
+Sewerage is overflowing on the main road,en,Drainage,critical
+Naali saaf nahi hui hai mahine bhar se,hi,Drainage,medium
+Drain has not been cleaned for a month,en,Drainage,medium
+Gilhari mein se badbu aa rahi hai,hi,Drainage,high
+Foul smell coming from the drain near school,en,Drainage,high
+Sadak mein bahut bada gaddha hai jo khatarnak hai,hi,Road Damage,critical
+"There is a huge pothole near the school, very dangerous",en,Road Damage,critical
+Road is completely broken near bus stand,en,Road Damage,high
+Sadak toot gayi hai bus stand ke paas,hi,Road Damage,high
+Pothole has caused two accidents already,en,Road Damage,critical
+Bijli ki line mein spark ho raha hai bahut khatarnak hai,hi,Electricity,critical
+"Electric wire is sparking near children park, very dangerous",en,Electricity,critical
+Transformer phat gaya hai aur bijli gayi hai,hi,Electricity,critical
+Bijli 3 din se gaayab hai,hi,Electricity,high
+No electricity for 3 days in our area,en,Electricity,high
+Kachra nahi uthaya ja raha hai do din se,hi,Waste Management,high
+Garbage has not been collected for 2 days,en,Waste Management,high
+Dump yard is overflowing and causing health issues,en,Waste Management,critical
+Kachre ka dher lag gaya hai aur badbu aa rahi hai,hi,Waste Management,critical
+Gali ki light band hai 5 din se andhera ho raha hai,hi,Street Lighting,high
+"Street light not working for 5 days, very dark at night",en,Street Lighting,high
+Andhera mein chalna mushkil ho raha hai,hi,Street Lighting,high
+Road is completely dark due to non-functional lights,en,Street Lighting,high
+Light ka wire kata hua hai,hi,Street Lighting,critical
