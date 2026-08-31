@@ -2,6 +2,8 @@ fastapi==0.115.11
 uvicorn[standard]==0.34.0
 sqlalchemy
 aiosqlite
+psycopg2-binary
+pg8000
 scikit-learn==1.9.0
 joblib
 deep-translator==1.11.4

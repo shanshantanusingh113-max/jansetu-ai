@@ -1,0 +1,11 @@
+.vercel
+.env*
+node_modules
+**/node_modules
+**/dist
+backend/venv
+backend/trained_models
+backend/*.db
+**/*.log
+.vscode
+.idea
