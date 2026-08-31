@@ -1,0 +1,20 @@
+[build]
+  command = "npm ci && cd frontend && npm ci && npm run build"
+  publish = "frontend/dist"
+
+  [build.environment]
+    # Neutralize npm 11.17 EALLOWSCRIPTS: Netlify injects
+    # NPM_CONFIG_ALLOW_SCRIPTS which npm rejects for project-scoped
+    # installs. Clearing it lets legitimate install scripts (esbuild,
+    # tailwind-oxide, etc.) run during the build.
+    NPM_CONFIG_ALLOW_SCRIPTS = ""
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# SPA fallback for pushState routing (function handles /api/* via config.path)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

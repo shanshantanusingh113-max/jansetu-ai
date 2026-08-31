@@ -2,6 +2,8 @@
 
 **AI-powered multilingual citizen grievance routing system.** Citizens submit complaints in Hindi or English (typed or spoken), the AI classifies and routes them to the right municipal department, and officers manage tickets through a dashboard.
 
+> **🔴 Live deployment:** [**jansetu-ai-corsair.netlify.app**](https://jansetu-ai-corsair.netlify.app) — deployed on **Netlify** (Netlify Functions + Netlify Database/Postgres). Use **Citizen** to file a complaint and **Officer** to manage tickets.
+
 > **Design system:** "JanSetu Corsair Edition" — a modern literary-technical aesthetic with an animated blueprint dot-grid background, italic Libre Caslon Text display headlines, Inter body type, and high-contrast solid-black actions with surgical accents of Corsair blue `#0051d5` and accent orange `#d95f00`.
 
 ---

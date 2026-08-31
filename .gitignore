@@ -58,3 +58,6 @@ Desktop.ini
 .idea/
 *.swp
 *.swo
+
+# Local Netlify folder
+.netlify
