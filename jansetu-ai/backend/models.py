@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Text, Float, Boolean, DateTime, ForeignKey
+from sqlalchemy import Column, String, Text, Float, Boolean, Integer, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from database import Base
@@ -12,6 +12,7 @@ class Complaint(Base):
     location = Column(String)
     citizen_name = Column(String, nullable=True)
     citizen_contact = Column(String, nullable=True)
+    photo_url = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     ticket = relationship("Ticket", back_populates="complaint", uselist=False)
 
@@ -29,6 +30,10 @@ class Ticket(Base):
     similarity_score = Column(Float, nullable=True)
     status = Column(String, default="new")
     officer_notes = Column(Text, nullable=True)
+    status_history = Column(Text, nullable=True)
+    feedback_rating = Column(Integer, nullable=True)
+    feedback_comment = Column(Text, nullable=True)
+    feedback_at = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, nullable=True)
     complaint = relationship("Complaint", back_populates="ticket")

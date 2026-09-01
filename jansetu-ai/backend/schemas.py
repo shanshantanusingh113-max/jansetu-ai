@@ -1,6 +1,7 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from typing import Optional
 from datetime import datetime
+import json
 
 class ComplaintCreate(BaseModel):
     raw_text: str
@@ -22,8 +23,23 @@ class TicketResponse(BaseModel):
     similarity_score: Optional[float]
     status: str
     officer_notes: Optional[str]
+    status_history: Optional[list] = None
+    feedback_rating: Optional[int] = None
+    feedback_comment: Optional[str] = None
+    feedback_at: Optional[datetime] = None
     created_at: datetime
     updated_at: Optional[datetime]
+    @field_validator("status_history", mode="before")
+    @classmethod
+    def parse_status_history(cls, v):
+        if v is None:
+            return []
+        if isinstance(v, str):
+            try:
+                return json.loads(v)
+            except Exception:
+                return []
+        return v
     class Config:
         from_attributes = True
 
@@ -33,6 +49,7 @@ class ComplaintResponse(BaseModel):
     translated_text: Optional[str]
     language: str
     location: Optional[str]
+    photo_url: Optional[str] = None
     created_at: datetime
     ticket: Optional[TicketResponse] = None
     class Config:
@@ -41,6 +58,16 @@ class ComplaintResponse(BaseModel):
 class TicketUpdate(BaseModel):
     status: Optional[str] = None
     officer_notes: Optional[str] = None
+    department: Optional[str] = None
+
+class FeedbackCreate(BaseModel):
+    rating: int
+    comment: Optional[str] = None
+
+class BulkTicketUpdate(BaseModel):
+    ids: list
+    status: str
+    note: Optional[str] = None
 
 class DashboardStats(BaseModel):
     total_tickets: int

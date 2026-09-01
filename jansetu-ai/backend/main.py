@@ -1,8 +1,11 @@
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from database import engine, Base, SessionLocal
 from routes import complaints, tickets, dashboard
+
+os.makedirs(complaints.UPLOADS_DIR, exist_ok=True)
 
 Base.metadata.create_all(bind=engine)
 
@@ -23,7 +26,9 @@ def ensure_seed_data():
 if os.environ.get("JANSETU_SEED", "1") == "1":
     ensure_seed_data()
 
-app = FastAPI(title="JanSetu AI", version="1.0.0")
+app = FastAPI(title="JanSetu AI", version="1.1.0")
+
+app.mount("/uploads", StaticFiles(directory=complaints.UPLOADS_DIR), name="uploads")
 
 allowed_origins = [
     "http://localhost:5173",

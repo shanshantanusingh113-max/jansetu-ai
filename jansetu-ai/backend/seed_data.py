@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from database import SessionLocal, engine, Base
 from models import Complaint, Ticket
 from ai.pipeline import process_complaint
+from timeline import init_history, push_event
 
 Base.metadata.create_all(bind=engine)
 
@@ -89,16 +90,39 @@ def seed_demo_tickets():
         ("Open drain near hospital is causing health problems","en","Near District Hospital, Gate 2"),
         ("Pani ka pipe toot gaya hai aur paani sadak pe beh raha hai","hi","MG Road, Near Temple"),
         ("Kachra uthane wala vehicle nahi aaya is hafte","hi","Shanti Nagar, Ward 12"),
+        ("Sewerage road pe bah rahi hai aur ek baccha gehraai mein gir gaya","hi","Old Market Road, Sector 6"),
+        ("High tension wire down in the colony, sparks and danger for children","en","Pump House Lane, Ward 4"),
     ]
     for text, lang, loc in demos:
         cid = str(uuid.uuid4())
         r = process_complaint(text, lang, loc)
         db.add(Complaint(id=cid, raw_text=text, translated_text=r["translated_text"], language=lang, location=loc))
         tid = f"TKT-{datetime.utcnow().strftime('%Y%m%d')}-{uuid.uuid4().hex[:6].upper()}"
+        status = random.choice(["new", "new", "in_progress", "resolved"])
+        created_at = datetime.utcnow() - timedelta(days=random.randint(0, 5), hours=random.randint(0, 10))
+        if status == "resolved":
+            updated_at = created_at + timedelta(hours=random.randint(3, 36))
+        elif status == "in_progress":
+            updated_at = created_at + timedelta(hours=random.randint(1, 70))
+        else:
+            updated_at = datetime.utcnow()
+        history = init_history("new")
+        if status in ("in_progress", "resolved"):
+            history = push_event(history, "in_progress", note="Officer started work", by="officer")
+        if status == "resolved":
+            history = push_event(history, "resolved", note="Issue resolved by department", by="officer")
         db.add(Ticket(id=tid, complaint_id=cid, category=r["category"], department=r["department"],
             urgency_level=r["urgency_level"], confidence_score=r["confidence_score"],
-            summary=r["summary"], status=random.choice(["new","new","in_progress","resolved"]),
-            created_at=datetime.utcnow()-timedelta(days=random.randint(0,5))))
+            summary=r["summary"], status=status, status_history=history,
+            created_at=created_at, updated_at=updated_at))
+    db.commit()
+    # Force one overdue open critical/high ticket so the SLA panel has signal.
+    overdue_candidates = [t for t in db.query(Ticket).all()
+                          if t.status in ("new", "in_progress")
+                          and t.urgency_level in ("critical", "high")]
+    if overdue_candidates:
+        t = overdue_candidates[0]
+        t.updated_at = datetime.utcnow() - timedelta(hours=60)
     db.commit()
     db.close()
 

@@ -103,6 +103,16 @@
   }
 }
 
+/* Print report: only the dashboard table card survives */
+@media print {
+  nav, footer, .no-print { display: none !important; }
+  body { background: #fff !important; }
+  main { max-width: 100% !important; padding: 0 !important; }
+  .card { box-shadow: none !important; border-color: #333 !important; }
+  main .max-w-\[1200px\] { margin: 0 !important; }
+  .stat-card, .blueprint-bg, .blueprint-orb { display: none !important; }
+}
+
 /* Background: animated blueprint dot-grid */
 .blueprint-bg {
   background-color: #f8f9fa;
